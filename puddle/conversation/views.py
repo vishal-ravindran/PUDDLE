@@ -14,7 +14,7 @@ def new_conversation(request, item_pk):
         return redirect('dashboard:index')
 
     conversations = Conversation.objects.filter(
-        item=item.filter(member__in=[request.user]))
+        item=item).filter(members__in=[request.user.id])
 
     if conversations:
         pass
@@ -22,8 +22,8 @@ def new_conversation(request, item_pk):
         form = ConversationMessageForm(request.POST)
         if form.is_valid():
             conversation = Conversation.objects.create(item=item)
-            conversation.add(request.user)
-            conversation.add(request.created_by)
+            conversation.members.add(request.user)
+            conversation.members.add(item.created_by)
             conversation.save()
 
             conversation_message = form.save(commit=False)

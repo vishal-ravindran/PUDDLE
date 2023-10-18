@@ -7,7 +7,7 @@ from item.models import Item
 
 
 class Conversation(models.Model):
-    conversation = models.ForeignKey(
+    item = models.ForeignKey(
         Item, on_delete=models.CASCADE, related_name='conversation')
     members = models.ManyToManyField(User, related_name='members')
     created_at = models.DateTimeField(auto_now_add=True)
