@@ -46,7 +46,7 @@ Items
     <div class="col-span-3 ">
         <div class="grid grid-cols-3 gap-3">
             {% for item in items %}
-            <div>
+            <div class="border border-gray-300 rounded-lg p-4">
                 <a href="{% url 'item:detail' item.id %}">
                     <div>
                         <img src="{{item.image.url}}" class="rounded-t-xl" alt="some_item_image">
