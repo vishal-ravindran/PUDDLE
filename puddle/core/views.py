@@ -1,20 +1,24 @@
 from django.shortcuts import redirect, render
 from item.models import Category, Item
 from .forms import SignupForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 # Create your views here.
 def index(request):
-    items = Item.objects.filter(is_sold = False)
+    items = Item.objects.filter(is_sold=False)
     categories = Category.objects.all()
-    context ={
+    context = {
         'items': items,
-        'categories' : categories,
+        'categories': categories,
     }
     return render(request, 'core/index.html', context=context)
 
+
 def contact(request):
     return render(request, 'core/contact.html')
+
 
 def signup(request):
     if request.method == 'POST':
@@ -23,13 +27,19 @@ def signup(request):
         if form.is_valid():
             form.save()
 
-            return redirect ('/login/')
+            return redirect('/login/')
 
     else:
         form = SignupForm()
 
     context = {
-        'form' : form,
+        'form': form,
     }
 
     return render(request, 'core/signup.html', context)
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('/login/')
