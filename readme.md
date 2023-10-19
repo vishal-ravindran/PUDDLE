@@ -33,4 +33,4 @@ items can be browsed and filtered. can contact seller by message.
 
 # Add item screen
 
-![Alt text](screenshots/image-7.png)
+![Alt text](screenshots/image-8.png)
